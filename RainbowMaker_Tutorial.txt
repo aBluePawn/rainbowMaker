@@ -1,0 +1,14 @@
+RainbowMaker Tutorial
+1. Load an image
+2. Select the Draw button
+    a. Draw a polyline by selecting some points on the image (by clicking on the image). You need to select at least two points. To get some practice, start with 3 points, and as you gain confidence, you can use more points. 
+    3. Adjust your rainbow (by adjusting the polyline)(while the Adjust Shape button is selected)
+        a. (left) click on one of the points of the polyline, and drag it to a different location.
+        b. Middle button click will change the rainbow, using the new position
+        c. (left) double click will add another point to the line
+        d. Right click shows the option to delete a point or to delete the entire line
+    e.	(left) click on any part of the line that is not a point (vertex) and drag will reposition the entire line
+4. Preview your image by hiding the polyline (via button)
+5. When you are happy with your rainbow, deselect the Adjust Shape button
+    a.	Important: after deselecting the Adjust Shape button, the polyline adjustment is active for one more use. So at the moment you have to perform a middle button click one more time (without adjusting the line), before saving the image (I am working on improving this section, this is my way around this issue at the moment).
+6. Save the image - this will create a new image, with the rainbow added
