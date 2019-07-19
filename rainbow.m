@@ -92,6 +92,10 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % clear the axes
 % see https://uk.mathworks.com/matlabcentral/answers/222578-display-image-in-axes-matlab-gui
 cla; % try also cla reset
+
+% Set the Adjust Shape button to on
+set(handles.radiobutton1, 'Value', 1);
+
 [fileName, path] = uigetfile('*.*','Select an image');
 handles.fileName = fileName; % used to save the new image
 %Quit the execution if no file is selected
