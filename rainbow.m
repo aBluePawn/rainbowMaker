@@ -134,9 +134,30 @@ if isfield(info, 'Orientation')
     end
 end
 
+% Show the image and save it
 set(handles.text3, 'Visible', 'Off');
 imshow(A);
 handles.image = A;
+
+% for the slider
+% see https://uk.mathworks.com/matlabcentral/answers/153278-discretizing-matlab-slider-gui
+
+[nrows, ~] = size(A); % Image dimensions
+numOfColours = get(handles.popupmenu1, 'Value'); % Get the number of colours
+minSlider = 1;
+maxSlider = round(nrows/numOfColours);
+set(handles.slider1, 'Min', minSlider);
+set(handles.slider1, 'Max', maxSlider);
+stripeWidth = round(nrows*0.025);% the default value
+set(handles.slider1, 'Value', stripeWidth);
+set(handles.slider1, 'SliderStep', [1/(maxSlider-1), 1/(maxSlider-1)]);
+set(handles.text4, 'String', ['Adjust the thickness of a colour stripe:', ' ', num2str(stripeWidth), ' ', 'pixels']); 
+set(handles.text5, 'String', get(handles.slider1, 'MIN'));
+set(handles.text6, 'String', get(handles.slider1, 'MAX'));
+
+
+
+handles.stripeWidth = stripeWidth;
 % Update handles structure
 guidata(hObject, handles);
 
@@ -153,7 +174,7 @@ colours = [[1 0 0]; [1 0.498 0]; [1 1 0]; [0 1 0]; [0 0 1]; [0.294 0 0.509]; [0.
 
 % Get image dimensions
 [nrows, ncols,~] = size(handles.image);
-stripeWidth = round(nrows*0.025);
+stripeWidth = handles.stripeWidth;
 
 % Get mouse inputs
 button=1;
@@ -211,7 +232,7 @@ plottedLines = [];
 fillArea = [];
 numOfColours = get(handles.popupmenu1, 'Value');
 for k = 1:numOfColours+1
-    p = plot(newX, newY-2*(k-1)*stripeWidth);
+    p = plot(newX, newY-(k-1)*stripeWidth);
     plottedLines = [plottedLines, p];
     
     % Fill the gap
@@ -239,7 +260,7 @@ while adjustStatus==1
     plottedLines = [];
     fillArea = [];
     for k = 1:numOfColours+1
-        p = plot(newX, newY-2*(k-1)*stripeWidth);
+        p = plot(newX, newY-(k-1)*stripeWidth);
         plottedLines = [plottedLines, p];
         if(length(plottedLines)>1)
             Cx = [plottedLines(end).XData, fliplr(plottedLines(end-1).XData)];
@@ -383,6 +404,15 @@ function slider1_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+% Get the current value
+stripeWidth=round(get(handles.slider1, 'Value'));
+
+% Visualise the adjustment
+set(handles.text4, 'String', ['Adjust the thickness of a colour stripe:', ' ', num2str(stripeWidth), ' ', 'pixels']);
+
+handles.stripeWidth = stripeWidth;
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
 function slider1_CreateFcn(hObject, eventdata, handles)
